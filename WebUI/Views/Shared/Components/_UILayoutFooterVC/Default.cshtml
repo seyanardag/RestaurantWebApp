@@ -1,0 +1,73 @@
+﻿@model ResultFooterInfoDtoUI
+
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 footer-col">
+                <div class="footer_contact">
+                    <h4>
+                        İletişim
+                    </h4>
+                    <div class="contact_link_box">
+                        <a href="">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span>
+                                @ViewBag.Location
+                            </span>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <span>
+                                @ViewBag.Phone
+                            </span>
+                        </a>
+                        <a href="">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <span>
+                               @ViewBag.Email
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 footer-col">
+                <div class="footer_detail">
+                    <a class="footer-logo">
+                        @Model.Title
+                    </a>
+                    <p>
+                        @Model.Description
+                    </p>
+
+
+                    @await Component.InvokeAsync("UILayoutSocialMediaVC")
+
+
+
+                </div>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>
+                    Çalışma saatlerimiz
+                </h4>
+                <p>
+                    @ViewBag.OpenDays
+                </p>
+                <p>
+                    Açılış: @ViewBag.OpeningHour 
+                </p>
+                <p>
+                    Kapanış: @ViewBag.ClosingHour
+                </p>
+            </div>
+        </div>
+        <div class="footer-info">
+            <p>
+                &copy; <span id="displayYear"></span> Tüm hakları saklıdır
+              
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->

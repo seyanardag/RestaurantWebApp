@@ -1,0 +1,105 @@
+﻿@model List<ResultDiscountedProductDtoUI>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 1;
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">İndirimli Ürün Listesi</div>
+            </div>
+            <div class="card-body">
+                <div class="card-sub">
+                    <p> İndirimli ürün işlemlerini burada gerçekleştirebilirsiniz.</p>
+                    <p><strong>Detaylı olarak görmek istediğiniz resmin üzerine tıklayabilirisiniz</strong></p>
+
+                </div>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Resim </th>
+                            <th scope="col">Başlık</th>
+                            <th scope="col">İndirim Oranı</th>
+                            <th scope="col"> Aktif mi? </th>
+                            <th scope="col">Sil</th>
+                            <th scope="col">Güncelle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@(count++)</td>
+                                <td>
+
+                                    @await Html.PartialAsync("_modalTemplate", (@item.DiscountedProductId.ToString(), @item.ImgUrl))
+
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="" data-toggle="modal" data-target="#exampleModal_@item.DiscountedProductId" style="border:none; background:none; cursor:pointer">
+                                        <img src="@item.ImgUrl" height="70" width="auto" />
+
+                                    </button>
+
+
+                                </td>
+                                <td>@item.Title</td>
+                                <td>@item.DiscountRate</td>
+
+
+                                <td>
+                                    @*  <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="@item.isActive" style="position:static !important" disabled>
+                                <label class="form-check-label">
+                                Aktif
+                                </label>
+                                </div> *@
+
+                                    @if (item.isActive)
+                                    {
+                                        <div class="badge badge-success">Aktif</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-danger">Pasif</div>
+                                    }
+
+                                </td>
+
+
+
+                                <td>
+                                    <a class=" btn btn-outline-danger" asp-controller="DiscountedProduct" asp-action="DeleteDiscountedProduct" asp-route-id="@item.DiscountedProductId">SİL</a>
+                                </td>
+                                <td>
+                                    <a class=" btn btn-outline-warning" asp-controller="DiscountedProduct" asp-action="UpdateDiscountedProduct" asp-route-id="@item.DiscountedProductId">GÜNCELLE</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+                <a class="btn btn-outline-success" asp-controller="DiscountedProduct" asp-action="CreateDiscountedProduct">Yeni Rezervasyon Girişi</a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+

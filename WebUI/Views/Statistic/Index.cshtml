@@ -1,0 +1,641 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+@* 3 script Default Layout tan alındı *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44346/SignalRHub").build();
+        $("#connStatus").text(connection.state);
+        connection.start().then(() => {
+            $("#connStatus").text(connection.state);
+
+            setInterval(() => {
+
+                connection.invoke("SendData"); //WebApi katmanındaki SignalRHub class ındaki SendData i invoke ediyoruz.
+
+            }, 1000);
+
+        }).catch((err) => { console.log(err) });
+
+
+        connection.on("productCount", (value) => {
+            $("#productCount").text(value);
+        });
+
+        connection.on("CategoryCount", (value) => {
+            $("#categorycount").text(value);
+        });
+
+        connection.on("ActiveCategoryCount", (value) => {
+            $("#ActiveCategoryCount").text(value)
+        })
+
+        connection.on("PassiveCategoryCount", (value) => {
+            $("#PassiveCategoryCount").text(value)
+        })
+
+        connection.on("GetProductCountByHamburger", (value) => {
+            $("#ProductCountByHamburger").text(value)
+        })
+
+        connection.on("GetProductCountByCategoryDrink", (value) => {
+            $("#ProductCountByCategoryDrink").text(value)
+        })
+
+
+        connection.on("GetAverageProductPrice", (value) => {
+            $("#GetAverageProductPrice").text(value)
+        })
+
+        connection.on("GetProductNameByMaxPrice", (value) => {
+            $("#GetProductNameByMaxPrice").text(value)
+        })
+
+        connection.on("GetProductNameByMinPrice", (value) => {
+            $("#GetProductNameByMinPrice").text(value)
+        })
+
+        connection.on("AverageHamburgerPrice", (value) => {
+            $("#AverageHamburgerPrice").text(value)
+        })
+        connection.on("GetTotalOrderCount", (value) => {
+            $("#GetTotalOrderCount").text(value)
+        })
+        connection.on("ActiveOrderCount", (value) => {
+            $("#ActiveOrderCount").text(value)
+        })
+
+
+
+
+        connection.on("LastOrderPrice", (value) => {
+            $("#LastOrderPrice").text(value)
+        })
+        connection.on("MoneyBoxAmount", (value) => {
+            $(".moneyboxamount").text(value)
+        })
+        connection.on("EndorsementToday", (value) => {
+            $("#EndorsementToday").text(value)
+        })
+        connection.on("RestaurantTableCount", (value) => {
+            $("#RestaurantTableCount").text(value)
+        })
+
+
+
+
+    });
+
+
+
+</script>
+
+
+
+<h4>Anlık İstatistikler</h4>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-stats card-primary">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-bar-chart"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Kategori Sayısı</p>
+                            <h4 class="card-title" id="categorycount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-primary">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-bar-chart"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Aktif Kategori </p>
+                            <h4 class="card-title" id="ActiveCategoryCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-primary">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-bar-chart"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Pasif Kategori</p>
+                            <h4 class="card-title" id="PassiveCategoryCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">İçecekler</p>
+                            <h4 class="card-title" id="ProductCountByCategoryDrink"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Ürün Sayısı</p>
+                            <h4 class="card-title" id="productCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">En ucuz ürün</p>
+                            <h4 class="card-title" id="GetProductNameByMinPrice"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">En pahalı ürün</p>
+                            <h4 class="card-title" id="GetProductNameByMaxPrice"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Ortalama Ürün Fiyatı</p>
+                            <h4 class="card-title" id="GetAverageProductPrice"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Hamburger Ürünleri</p>
+                            <h4 class="card-title" id="ProductCountByHamburger"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-success">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Ortalama hamburger fiyatı</p>
+                            <h4 class="card-title" id="AverageHamburgerPrice"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-warning">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-cutlery"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Masa Sayısı</p>
+                            <h4 class="card-title" id="RestaurantTableCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-danger">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-try"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Son Sipariş Tutarı</p>
+                            <h4 class="card-title" id="LastOrderPrice"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="card card-stats card-danger">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-try"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Kasa</p>
+                            <h4 class="card-title moneyboxamount" ></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-danger">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-try"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Bugünkü kazanç</p>
+                            <h4 class="card-title" id="EndorsementToday"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-danger">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-try"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Aktif Sipariş Sayısı</p>
+                            <h4 class="card-title" id="ActiveOrderCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stats card-danger">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-try"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Toplam Sipariş Sayısı</p>
+                            <h4 class="card-title" id="GetTotalOrderCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    let val1 = 1;
+    let val2 = 2;
+
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44346/SignalRHub").build();
+        $("#connStatus").text(connection.state);
+        connection.start().then(() => {
+            $("#connStatus").text(connection.state);
+
+            setInterval(() => {
+
+                connection.invoke("SendProgressBarData"); //WebApi katmanındaki SignalRHub class ındaki SendProgressBarData i invoke ediyoruz.
+
+            }, 1000);
+
+        }).catch((err) => { console.log(err) });
+
+
+
+        connection.on("active-total-counts", (value) => {
+            let activeordercount = value[0];
+            let totalordercount = value[1];
+            let ratio = activeordercount / totalordercount * 100;
+
+
+            $("#active-total-orders").html(`<div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted">Aktif Sipariş Oranı (Aktif/Toplam) </span>
+                                    <span class="text-muted fw-bold"> ${totalordercount} </span>
+                            </div>
+                            <div class="progress mb-2" style="height: 7px;">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                           style="width: ${ratio}%"
+                                                    aria-valuenow="${activeordercount}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="${totalordercount}"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title=""
+                                                data-original-title="division%"></div>
+                                </div>`);
+        })
+
+
+
+        connection.on("tablecount", (value) => {
+            let activetablecount = value[0];
+            let totaltablecount = value[1];
+
+            let ratio = activetablecount / totaltablecount * 100;
+
+
+            $("#tablesprogress").html(`<div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Dolu Masa Oranı (Aktif/Toplam) </span>
+                                            <span class="text-muted fw-bold"> ${totaltablecount} </span>
+                                </div>
+                                <div class="progress mb-2" style="height: 7px;">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                               style="width: ${ratio}%"
+                                                            aria-valuenow="${activetablecount}"
+                                                    aria-valuemin="0"
+                                                        aria-valuemax="${totaltablecount}"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top" title=""
+                                                    data-original-title="11%"></div>
+                                    </div>`);
+        })
+
+
+
+        // connection.on("MoneyBoxAmount", (value) => {
+        //     $(".moneyboxamount").text(value);
+        // });
+
+
+
+    });
+
+
+</script>
+
+
+
+<div class="row row-card-no-pd">
+   
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-5">
+
+                <p class="fw-bold mt-1">Kasadaki Para;</p>
+                <h4><b class="moneyboxamount"></b> </h4>
+                </div>
+                <hr />
+
+                <div class="mt-5">
+
+                <div id="active-total-orders" class="progress-card">
+                </div>
+
+                <div id="tablesprogress" class="progress-card">
+                </div>
+                </div>
+               
+@* 
+                <div class="progress-card">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Profit</span>
+                        <span class="text-muted fw-bold"> $3K</span>
+                    </div>
+                    <div class="progress mb-2" style="height: 7px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="" data-original-title="78%"></div>
+                    </div>
+                </div>
+ *@
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44346/SignalRHub").build();
+        $("#connStatus").text(connection.state);
+        connection.start().then(() => {
+            $("#connStatus").text(connection.state);
+
+            setInterval(() => {
+
+                connection.invoke("SendCategoryProductCounts"); //WebApi katmanındaki SignalRHub class ındaki SendData i invoke ediyoruz.
+
+            }, 1000);
+
+        }).catch((err) => { console.log(err) });
+
+
+        connection.on("categoryProductCounts", function (categoryCounts) {
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+
+            function drawChart() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Category');
+                data.addColumn('number', 'Products');
+
+                categoryCounts.forEach(category => {
+                    data.addRow([category.key, category.value])
+                });
+
+                // data.addRows([
+                //     ['Mushrooms', 3],
+                //     ['Onions', 1],
+                //     ['Olives', 1],
+                //     ['Zucchini', 1],
+                //     ['Pepperoni', 2]
+                // ]);
+
+                // Set chart options
+                var options = {
+                    'legend': 'left',
+                    'title': 'Kategoriler',
+                    'is3D': true,
+                    'width': 500,
+                    'height': 400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+
+
+        });
+    </script>
+
+    <div class="col-lg-6 ">
+        <div class="card card-stats">
+            <div class="card-body">
+                <p class="fw-bold mt-1">Statistic</p>
+          
+                <!--Div that will hold the pie chart-->
+                <div id="chart_div"></div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

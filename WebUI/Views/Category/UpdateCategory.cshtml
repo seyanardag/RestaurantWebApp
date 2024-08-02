@@ -1,0 +1,46 @@
+﻿@model UpdateCategoryDtoUI
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="Category" asp-action="UpdateCategory">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Kategori Güncelleme</div>
+                </div>
+                <div class="card-body">
+
+                    <input type="hidden" asp-for="CategoryId" />
+
+                    <div class="form-group">
+                        <label asp-for="CategoryName">Kategori Adı</label>
+                        <input type="text" class="form-control" asp-for="CategoryName">
+                    </div>
+
+                    <div class="form-check">
+                        <label>Kategori Durumu</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="Status" value="true" >
+                            <span class="form-radio-sign">Mevcut</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="Status" value="false">
+                            <span class="form-radio-sign">Mevcut Değil</span>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-warning" type="submit">Güncelle</button>
+                    <a class="btn btn-danger" asp-controller="Category" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

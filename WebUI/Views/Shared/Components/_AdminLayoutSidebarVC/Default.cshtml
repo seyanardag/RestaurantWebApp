@@ -1,0 +1,305 @@
+﻿<style>
+    .active {
+        background-color: #f2f3f8;
+    }
+</style>
+
+<div class="sidebar">
+    <div class="scrollbar-inner sidebar-wrapper">
+        @* <div class="user">
+        <div class="photo">
+        <img src="~/adminTemplate/assets/img/profile.jpg">
+        </div>
+        <div class="info">
+        <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+        <span>
+        Kullanıcı
+        <span class="user-level">Administrator</span>
+        <span class="caret"></span>
+        </span>
+        </a>
+        <div class="clearfix"></div>
+
+        <div class="collapse in" id="collapseExample" aria-expanded="true" style="">
+        <ul class="nav">
+        <li>
+        <a href="#">
+        <span class="link-collapse">Profilim</span>
+        </a>
+        </li>
+        <li>
+        <a href="/Profile/UpdateProfile/">
+        <span class="link-collapse">Profil Düzenle</span>
+        </a>
+        </li>
+        <li>
+        <a href="#settings">
+        <span class="link-collapse">Ayarlar</span>
+        </a>
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div> *@
+
+
+        <ul class="nav">
+
+
+            <li class="nav-item @IsActive("Home","MainPage")">
+                <a href="/Home/MainPage">
+                    <i class="la la-home"></i>
+                    <p>Ana Sayfa</p>
+
+                </a>
+            </li>
+            <li class="nav-item @IsActive("Statistic","Index")">
+                <a href="/Statistic/Index">
+                    <i class="la la-dashboard"></i>
+                    <p>Dashboard</p>
+
+                </a>
+            </li>
+
+
+
+            <li class="nav-item @IsActive("Category","Index")">
+                <a href="/Category/Index">
+                    <i class="la la-table"></i>
+                    <p>Kategori</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("Product","Index")">
+                <a href="/Product/Index">
+                    <i class="la la-shopping-cart"></i>
+                    <p>Ürünler</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("About","Index")">
+                <a href="/About/Index">
+                    <i class="la la-weixin"></i>
+                    <p>Hakkımızda</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("Booking","Index")">
+                <a href="/Booking/Index">
+                    <i class="la la-phone"></i>
+                    <p>Rezervasyonlar</p>
+
+                </a>
+            </li>
+
+
+
+            <li class="nav-item @IsActive("DiscountedProduct","Index")">
+                <a href="/DiscountedProduct/Index">
+                    <i class="la la-money"></i>
+                    <p>İndirimli Ürünler</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("Feature","Index")">
+                <a href="/Feature/Index">
+                    <i class="la la-list-ol"></i>
+                    <p>Öne Çıkan</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("Testimonial","Index")">
+                <a href="/Testimonial/Index">
+                    <i class="la la-microphone"></i>
+                    <p>Müşteri Yorumları</p>
+
+                </a>
+            </li>
+
+
+
+            <li class="nav-item @IsActive("RestaurantTable","Index")">
+                <a href="/RestaurantTable/Index">
+                    <i class="la la-cutlery"></i>
+                    <p>Masa İşlemleri</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("RestaurantTable","TablesRealtime")">
+                <a href="/RestaurantTable/TablesRealtime">
+                    <i class="la la-cutlery"></i>
+                    <div>
+                        <p>Masa İşlemleri</p>
+                        <p>(Anlık-Senkron)</p>
+                    </div>
+
+                </a>
+            </li>
+
+
+            <li class="nav-item @IsActive("Notification","Index")">
+                <a href="/Notification/Index">
+                    <i class="la la-bell"></i>
+                    <p>Bildirim İşlemleri</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("ContactFormMessage","Index")">
+                <a href="/ContactFormMessage/Index">
+                    <i class="la la-comments"></i>
+                    <p>İletişim Form Yanıtları</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("Contact","Index")">
+                <a href="/Contact/Index">
+                    <i class="la la-comment"></i>
+                    <p>İletişim Bilgileri</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("Mail","Index")">
+                <a href="/Mail/Index">
+                    <i class="la la-envelope"></i>
+                    <p>Mail İşlemleri</p>
+
+                </a>
+            </li>
+
+
+            <hr />
+            <li class="nav-item @IsActive("FooterInfo","Index")">
+                <a href="/FooterInfo/Index">
+                    <i class="la la-angle-double-down"></i>
+                    <p>Footer Bilgisi</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("OpenHour","Index")">
+                <a href="/OpenHour/Index">
+                    <i class="la la-clock-o"></i>
+                    <p>Açık Saatler</p>
+
+                </a>
+            </li>
+
+            <li class="nav-item @IsActive("SocialMedia","Index")">
+                <a href="/SocialMedia/Index">
+                    <i class="la la-twitter"></i>
+                    <p>Sosyal Medya</p>
+
+                </a>
+            </li>
+            <hr />
+
+            <li class="nav-item @IsActive("Login","Logout")">
+                <a href="/Login/Logout">
+                    <i class="la la-sign-out"></i>
+                    <p>Çıkış Yap</p>
+
+                </a>
+            </li>
+
+
+            <hr />
+
+
+            <br />
+            <li class="nav-item @IsActive("Login","Logout")">
+                <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+
+                    <i class="la la-code-fork"></i>
+                    <p>
+
+
+                        Developer Bölümü
+                        <span class="caret"></span>
+
+
+
+                    </p>
+
+                </a>
+            </li>
+
+
+            <div class="clearfix"></div>
+
+            <div class="collapse in" id="collapseExample" aria-expanded="true" style="">
+                <ul class="nav">
+
+                  
+
+                    <li class="nav-item">
+                        <a href="~/admintemplate/forms.html">
+                            <i class="la la-keyboard-o"></i>
+                            <p>Forms</p>
+                            <span class="badge badge-count">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="~/admintemplate/tables.html">
+                            <i class="la la-th"></i>
+                            <p>Tables</p>
+                            <span class="badge badge-count">6</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="~/admintemplate/notifications.html">
+                            <i class="la la-bell"></i>
+                            <p>Notifications</p>
+                            <span class="badge badge-success">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="~/admintemplate/typography.html">
+                            <i class="la la-font"></i>
+                            <p>Typography</p>
+                            <span class="badge badge-danger">1</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="~/admintemplate/icons.html">
+                            <i class="la la-fonticons"></i>
+                            <p>Icons</p>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+
+
+
+
+
+
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+@functions {
+    public string IsActive(string controllerName, string actionName)
+    {
+        string controller = ViewContext.RouteData.Values["controller"]?.ToString();
+        string action = ViewContext.RouteData.Values["action"]?.ToString();
+
+
+        string result = (controller == controllerName && action == actionName) ? "active" : "";
+        return result;
+    }
+}

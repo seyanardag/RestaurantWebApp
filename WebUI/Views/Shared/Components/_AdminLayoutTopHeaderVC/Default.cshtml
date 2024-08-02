@@ -1,0 +1,166 @@
+﻿<div class="main-header">
+	<div class="logo-header">
+		<div class="logo d-flex align-items-center  " style="color:#83848a">
+			<i class="la la-user-secret" style="font-size:2rem"></i>
+			<span class="ml-2">Admin Paneli</span>
+		</div>
+	@* 	<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button> *@
+	</div>
+
+
+	<nav class="navbar navbar-header navbar-expand-lg">
+		<div class="container-fluid">
+
+			@*<form class="navbar-left navbar-form nav-search mr-md-3" action="">
+				<div class="input-group">
+					 <input type="text" placeholder="Search ..." class="form-control">
+					<div class="input-group-append">
+						<span class="input-group-text">
+							<i class="la la-search search-icon"></i>
+						</span>
+					</div> 
+				</div>
+					</form>*@
+
+
+			<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+			@* 	<li class="nav-item dropdown hidden-caret">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="la la-envelope"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li> *@
+				<li class="nav-item dropdown hidden-caret">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="la la-bell"></i>
+						<span class="notification" id="unreadNotificationCount"></span>
+					</a>
+					<ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
+						<li>
+							<div class="dropdown-title">You have <span id="unreadNotificationCount2"></span> new notification</div>
+						</li>
+
+
+						<li>
+							<div class="notif-center">
+
+								<div id="notificationList" ></div>
+@* 
+								<a href="#">
+									<div class="notif-icon notif-primary"> <i class="la la-user-plus"></i> </div>
+									<div class="notif-content">
+										<span class="block">
+											New user registered
+										</span>
+										<span class="time">5 minutes ago</span>
+									</div>
+								</a>
+								<a href="#">
+									<div class="notif-icon notif-success"> <i class="la la-comment"></i> </div>
+									<div class="notif-content">
+										<span class="block">
+											Rahmad commented on Admin
+										</span>
+										<span class="time">12 minutes ago</span>
+									</div>
+								</a> *@
+							
+							</div>
+						</li>
+
+
+						<li>
+							<a class="see-all" href="/Notification/Index"> <strong>Tümünü Gör</strong> <i class="la la-angle-right"></i> </a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown">
+
+
+					@await Component.InvokeAsync("_AdminLayoutProfileNavbarVC")
+
+
+					<!-- /.dropdown-user -->
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+
+
+@* 3 script Default Layout tan alındı *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(() => {
+		var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44346/SignalRHub").build();
+		$("#connStatus").text(connection.state);
+		connection.start().then(() => {
+			$("#connStatus").text(connection.state);
+
+			setInterval(() => {
+
+				connection.invoke("GetUnreadNotifications"); //WebApi katmanındaki SignalRHub class ındaki GetUnreadNotifications i invoke ediyoruz.
+			}, 1000);
+
+		}).catch((err) => { console.log(err) });
+
+
+		connection.on("unreadnotificationslist", (value) => {
+			console.log(value);
+			let unreadNotificationCount = value.length;
+
+			$("#unreadNotificationCount").text(unreadNotificationCount);
+			$("#unreadNotificationCount2").text(unreadNotificationCount);
+
+			
+			let notificationList = ``
+
+			$.each(value, (index, item) => {
+				moment.locale('tr');
+				let formattedDate = moment(item.date).fromNow() //Tarih formatı
+				let descriptionFormatted = item.description.length > 25 ? item.description.substring(0, 25) + "..." : item.description;
+				 
+				notificationList += `<a href="/Notification/UpdateNotification/${item.notificationId}">
+											<div class="notif-icon notif-${item.type}"> <i class="la la-info-circle"></i> </div>
+										<div class="notif-content">
+											<span class="block">
+													${descriptionFormatted}
+											</span>
+												<span class="time"> ${formattedDate} </span>
+										</div>
+									</a>`
+			})
+
+			$("#notificationList").html(notificationList);
+
+	
+		});
+	
+
+	});
+
+
+
+</script>
+
+@* Tarih formatı için moment.js cdn linki; *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/tr.min.js"></script>
+

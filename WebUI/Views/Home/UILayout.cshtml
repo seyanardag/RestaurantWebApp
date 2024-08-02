@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+
+    @await Component.InvokeAsync("_UILayoutHeadVC")
+
+<body >
+
+    <div class="hero_area" style="min-height:auto !important">
+        <div class="bg-box" style="background-color:#222831 !important;">
+            @* <img src="~/restaurantTemplate/images/hero-bg.jpga" height="5rem" alt=""> *@
+        </div>
+        <!-- header section strats -->
+        @await Component.InvokeAsync("_UILayoutHeaderVC")
+        <!-- end header section -->
+
+
+
+
+    </div>
+
+
+            @RenderBody() 
+    
+    
+    @await Component.InvokeAsync("_UILayoutFooterVC")
+
+
+    @await Component.InvokeAsync("_UILayoutScriptVC")
+
+
+
+
+
+
+</body>
+
+</html>

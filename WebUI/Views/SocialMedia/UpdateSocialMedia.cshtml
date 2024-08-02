@@ -1,0 +1,69 @@
+﻿@model UpdateSocialMediaDtoUI
+
+@{
+    ViewData["Title"] = "UpdateSocialMedia";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="SocialMedia" asp-action="UpdateSocialMedia">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Sosyal Medya Bilgisi Güncelleme</div>
+                </div>
+                <div class="card-body">
+
+                    <input type="hidden" asp-for="SocialMediaId" />
+
+                    <div class="form-group">
+                        <label asp-for="Platform">Platform</label>
+                        <input type="text" class="form-control" asp-for="Platform" readonly >
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="siteUrl">Site URL</label>
+                        <input type="text" class="form-control" asp-for="siteUrl">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon">Simge</label>
+                        <input type="text" class="form-control" asp-for="Icon" readonly>
+                    </div>
+
+
+                    <div class="form-check">
+                        <label>Durum</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="IsActive" value="true">
+                            <span class="form-radio-sign">Aktif</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="IsActive" value="false">
+                            <span class="form-radio-sign">Pasif</span>
+                        </label>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Güncelle</button>
+                    <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

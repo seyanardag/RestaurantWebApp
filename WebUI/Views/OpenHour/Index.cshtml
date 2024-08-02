@@ -1,0 +1,81 @@
+﻿@model List<ResultOpenHourDtoUI>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 1;
+}
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title">Açık Saatler Listesi</div>
+			</div>
+			<div class="card-body">
+				<div class="card-sub">					
+					<p class="fw-bold text-danger" text-danger">Tema bütünlüğü açısından Web sitesinde sadece bir çalışma saati gösterilebilir. </p>
+					<p class="fw-bold text-danger">Bu listede aktif olarak seçilen çalışma saatlerinden ilki baz alınacaktır. </p>
+				</div>
+				<table class="table mt-3">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Açık Günler</th>
+							<th scope="col">Açılma saati</th>
+							<th scope="col">Kapanma saati</th>
+							<th scope="col">Durum</th>
+							
+							<th scope="col">Sil</th>
+							<th scope="col">Güncelle</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var item in Model)
+						{
+
+							<tr>
+								<td>@(count++)</td>
+								<td>@item.OpenDays</td>
+								<td>@item.OpeningHour</td>
+								<td>@item.ClosingHour</td>
+
+								<td>
+									@if (item.IsActive)
+									{
+										<div class="badge badge-success">Aktif</div>
+									}
+									else
+									{
+										<div class="badge badge-danger">Pasif</div>
+									}
+
+								</td>
+
+								<td>
+									<a class=" btn btn-outline-danger" asp-controller="OpenHour" asp-action="DeleteOpenHour" asp-route-id="@item.Id">SİL</a>
+								</td>
+								<td>
+									<a class=" btn btn-outline-warning" asp-controller="OpenHour" asp-action="UpdateOpenHour" asp-route-id="@item.Id">GÜNCELLE</a>
+								</td>
+							</tr>
+						}
+
+
+					</tbody>
+				</table>
+
+				<a class="btn btn-outline-success" asp-controller="OpenHour" asp-action="CreateOpenHour">Yeni Açık Saat Girişi</a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+

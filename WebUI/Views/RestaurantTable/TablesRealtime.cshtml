@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "TablesRealtime";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+@* 3 script Default Layout tan alındı *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(() => {
+		var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44346/SignalRHub").build();
+		$("#connStatus").text(connection.state);
+		connection.start().then(() => {
+			$("#connStatus").text(connection.state);
+
+			setInterval(() => {
+
+				connection.invoke("TablesRealtime"); //WebApi katmanındaki SignalRHub class ındaki TablesRealtime i invoke ediyoruz.
+			}, 1000);
+
+		}).catch((err) => { console.log(err) });
+
+
+		connection.on("tableList", (value) => {
+			console.log(value);
+			let tableHtml = ``;
+            let status = "";
+            let color = "";
+
+			$.each(value, (index, item) => {
+
+                if (item.status) {
+                    status = "Masa Dolu";
+                    color = "card card-stats card-warning";
+                } else {
+                    status = "Masa Boş";
+                    color = "card card-stats card-success";
+                }
+                
+
+
+				tableHtml += `
+                        <div class="col-md-3">
+                                <div class="${color}">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                    <i class="la la-cutlery"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 d-flex align-items-center">
+                                            <div class="numbers">
+                                                <p class="card-category">${item.tableName}</p>
+                                                        <h4 class="card-title"> ${status} </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+			})
+
+            $("#tableContent").html(tableHtml);
+            
+
+
+		});
+
+
+	});
+
+
+
+</script>
+
+
+
+<h4>Anlık Masa Durumu</h4>
+<p>Bu sayfa otomatik olarak güncellenmektedir, yenilemenize gerek yoktur.</p>
+<div class="row" id="tableContent">
+
+
+    @* <div class="col-md-3">
+        <div class="card card-stats card-warning">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="la la-users"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="numbers">
+                            <p class="card-category">Ürün Sayısı</p>
+                            <h4 class="card-title" id="productCount"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
+
+
+</div>
+

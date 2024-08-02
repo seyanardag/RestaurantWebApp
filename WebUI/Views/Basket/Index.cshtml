@@ -1,0 +1,95 @@
+﻿@model List<ResultBasketViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/UILayout.cshtml";
+
+    int count = 0;
+    decimal totalPriceOfTable = Model.Sum(x => x.TotalPrice);
+
+}
+
+<div class="row m-3">
+    <div class="col-md-8 p-2">
+        <h1 class="m-4">Sepetteki Ürünler</h1>
+        <table class="table table-borderless ">
+            <thead>
+                <tr class=" table-light border-bottom">
+                    <th scope="col">#</th>
+                    <th scope="col">Ürün Adı</th>
+                    <th scope="col">Fiyat</th>
+                    <th scope="col">Adet</th>
+                    <th scope="col">Toplam Fiyat</th>
+                    <th scope="col">Sil / Azalt</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.ProductName</td>
+                        <td>@item.Price</td>
+                        <td>@item.Count</td>
+                        <td>@item.TotalPrice</td>
+                        <td>
+
+                           @if (@item.Count > 1)
+                            {
+                            <a href="/Basket/DeleteFromBasket/@item.BasketId" class="btn btn-warning"> <i class="fa fa-minus"></i> </a>
+                                
+                            } else
+                            {
+                                
+                            <a href="/Basket/DeleteFromBasket/@item.BasketId" class="btn btn-danger"> <i class="fa fa-times"></i> </a>
+                            }
+
+                            @* <button class="btn btn-danger" data-basket-id="@item.BasketId" id="btndeletebasketid"><i class="fa fa-times"></i> </button> *@
+                        </td>
+
+                    </tr>
+                }          
+                <tr style="border-top: solid 1px black;" >
+                    
+                    <td></td>
+                    <td class="font-weight-bold" colspan="3">TOPLAM</td>
+                    <td class="font-weight-bold"> @totalPriceOfTable </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-4 p-2">
+        <h1 class="m-4">Sipariş Özeti</h1>      
+
+        <div class="container">
+            <div style="display:grid;  grid-template-columns: 1fr auto;">
+                <span >Tutar</span>
+                <span>@totalPriceOfTable</span>
+            </div> 
+            <div class="d-flex justify-content-between">
+                <span>Kdv (18%) </span>
+                <span> @(Math.Round((Convert.ToDouble(totalPriceOfTable) * 0.18), 2)) </span>
+            </div> 
+            <hr />
+            <div class="d-flex justify-content-between">
+                <span>Toplam Tutar</span>
+                <span>@( Math.Round( (Convert.ToDouble(totalPriceOfTable) * 1.18),2)) </span>
+            </div>
+            <button class="btn btn-block bg-warning mt-2">SİPARİŞİ TAMAMLA</button>
+        </div>
+
+        <div class="container mt-4  text-center">
+            <div class="row gx-2a">
+                <div class="col pr-0">
+                    <input class="form-control " type="text" id="couponcode" placeholder="Kupon kodunuz" />
+                </div>
+                <div class="col pl-0">
+                    <button class="btn btn-warning" type="button"> KUPONU UYGULA </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

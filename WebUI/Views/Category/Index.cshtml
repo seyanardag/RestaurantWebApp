@@ -1,0 +1,70 @@
+﻿@model List<ResultCategoryDtoUI>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	string element = "";
+	int count = 0;
+}
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title">Kategori Listesi</div>
+			</div>
+			<div class="card-body">
+				<div class="card-sub">
+					Kategori ile ilgili işlemleri burada gerçekleştirebilirsiniz.
+				</div>
+				<table class="table mt-3">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Kategori Adı</th>
+							<th scope="col">Durum</th>
+							<th scope="col">Sil</th>
+							<th scope="col">Güncelle</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var item in Model)
+						{
+							count++;
+							<tr>
+								<td>@count</td>
+								<td>@item.CategoryName</td>
+								<td>
+									@if (item.Status)
+									{
+										<div class="badge badge-success">Mevcut</div>
+									}
+									else
+									{
+										<div class="badge badge-danger">Mevcut değil</div>
+									}
+									
+								</td>
+								<td>
+									<a class=" btn btn-outline-danger" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@item.CategoryId">SİL</a>
+								</td>
+								<td>
+									<a class=" btn btn-outline-warning" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@item.CategoryId">GÜNCELLE</a>
+								</td>
+							</tr>
+						}
+						
+						
+					</tbody>
+				</table>
+
+				<a class="btn btn-outline-success" asp-controller="Category" asp-action="CreateCategory" >Yeni Kategori Girişi</a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>

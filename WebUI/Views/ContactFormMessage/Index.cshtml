@@ -1,0 +1,115 @@
+﻿@model List<ResultContactFormMessageDtoUI>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 1;
+
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title"> İletişim Formu Yanıtları Listesi</div>
+            </div>
+            <div class="card-body">
+                <div class="card-sub">
+                    <p>İletişim formu yanıtları işlemlerini burada gerçekleştirebilirsiniz.</p>
+                   
+                </div>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Ad Soyad</th>
+                            <th scope="col">Mail</th>
+                            <th scope="col">Tel No</th>
+                            <th scope="col">Başlık</th>
+                            <th scope="col">Mesaj İçeriği</th>
+                            <th scope="col">Tarih</th>
+                            <th scope="col">Okunma Durumu</th>
+                            <th scope="col">Okundu/Okunmadı işaretle</th>
+                            <th scope="col">Sil</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@(count++)</td>
+
+                                <td>@item.NameSurname</td>
+                                <td>@item.Mail</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Title</td>
+
+                                <td>
+                                    <a href="/ContactFormMessage/Detail/@item.ContactFormMessageId">
+
+                                    @(item.Content.Length < 30 ? item.Content : (item.Content.Substring(0,27) + "...") )
+                                    </a>
+                                    
+                                </td>
+
+                                <td>@item.Date.ToString("dd.MMM.yyyy") </td>
+
+
+                                <td>
+                                    @if (item.IsRead)
+                                    {
+                                        <div class="badge badge-success">Okundu</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-danger">Okunmadı</div>
+                                    }
+
+
+                                </td>
+                                
+
+                             
+                                @if(item.IsRead)
+                                {
+                                    <td>
+                                        <a class="btn btn-success btn-block" asp-controller="ContactFormMessage" asp-action="MarkAsUnRead" asp-route-id="@item.ContactFormMessageId">Okunmadı İşaretle</a>
+                                    </td>
+                                } else
+                                {
+                                    <td>
+                                        <a class="btn btn-outline-success  btn-block" asp-controller="ContactFormMessage" asp-action="MarkAsRead" asp-route-id="@item.ContactFormMessageId">Okundu İşaretle</a>
+                                    </td>
+                                }
+
+
+
+                                <td>
+                                    <a class=" btn btn-danger" asp-controller="ContactFormMessage" asp-action="DeleteContactFormMessage" asp-route-id="@item.ContactFormMessageId">SİL</a>
+                                </td>
+
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+                
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+

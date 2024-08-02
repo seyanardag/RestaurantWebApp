@@ -1,0 +1,82 @@
+﻿@model List<ResultContactDtoUI>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 1;
+}
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title">İletişim Bilgileri Listesi</div>
+			</div>
+			<div class="card-body">
+				<div class="card-sub">
+					<p>İletişim bilgileri işlemlerini burada gerçekleştirebilirsiniz.</p>
+					<p><strong>"Seçim" sütununda aktif olmasını istediğiniz ilgili satırı seçiniz</strong></p>
+					<p><strong>Yeni eklenen veya son güncellenen iletişim bilgileri aktif olarak seçilecektir.</strong></p>
+				</div>
+				<table class="table mt-3">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Seçim</th>
+							<th scope="col">Lokasyon</th>
+							<th scope="col">Tel No</th>
+							<th scope="col">email</th>
+							
+							<th scope="col">Sil</th>
+							<th scope="col">Güncelle</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var item in Model)
+						{
+
+							<tr class="" style="background-color:@(item.isSelected == true ? "rgb(242, 243, 248)" : ""); ">
+								<td>@(count++)</td>
+
+								<td>
+									<div class="form-check">
+										<form method="post" asp-controller="Contact" asp-action="ChangeSelectedContact" asp-route-id="@item.ContactId">
+											<button type="submit" class="btn p-0">
+												<input class="form-radio-input" type="radio"  asp-for="@item.isSelected"  value="true">
+												<span class="form-radio-sign"></span>
+											</button>
+										</form>
+									</div>
+								</td>
+
+								<td>@item.Location</td>
+								<td>@item.Phone</td>
+								<td>@item.Email</td>								
+
+								<td>
+									<a class=" btn btn-outline-danger" asp-controller="Contact" asp-action="DeleteContact" asp-route-id="@item.ContactId">SİL</a>
+								</td>
+								<td>
+									<a class=" btn btn-outline-warning" asp-controller="Contact" asp-action="UpdateContact" asp-route-id="@item.ContactId">GÜNCELLE</a>
+								</td>
+							</tr>
+						}
+
+
+					</tbody>
+				</table>
+
+				<a class="btn btn-outline-success" asp-controller="Contact" asp-action="CreateContact">Yeni İletişim Bilgisi Girişi</a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+
+
+

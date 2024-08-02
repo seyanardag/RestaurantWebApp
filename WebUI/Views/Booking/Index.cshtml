@@ -1,0 +1,228 @@
+﻿@* @model List<ResultBookingDtoUI> *@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 1;
+
+}
+
+
+
+
+@* 3 script Default Layout tan alındı *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44346/SignalRHub").build();
+        $("#connStatus").text(connection.state);
+        connection.start().then(() => {
+            $("#connStatus").text(connection.state);
+
+            setInterval(() => {
+
+                connection.invoke("GetBookingList"); //WebApi katmanındaki SignalRHub class ındaki GetBookingList i invoke ediyoruz.
+            }, 1000);
+
+        }).catch((err) => { console.log(err) });
+
+
+        connection.on("getBookingList", (value) => {
+            console.log(value);
+            $("#bookinglist").empty();
+
+            let tableHtml = `<table class="table mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Müşteri Adı</th>
+                                            <th scope="col">Tel No</th>
+                                            <th scope="col">email</th>
+                                            <th scope="col">Kişi Sayısı</th>
+                                            <th scope="col">Tarih</th>
+                                            <th scope="col">Durum</th>
+                                            <th scope="col">Onayla</th>
+                                            <th scope="col">İptal/Red</th>
+                                            <th scope="col">Sil</th>
+                                            <th scope="col">Güncelle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+            $.each(value, (index, item) => {
+
+                let bookingDate = new Date(item.bookingDate);
+                let formattedDate = `${bookingDate.getDate()} / ${bookingDate.getMonth() + 1} / ${bookingDate.getFullYear()}`;
+
+                let simdi = new Date();
+                let bookingTarihi = new Date(item.bookingDate);
+                let colorByTime = simdi.getTime() < bookingTarihi.getTime() ? "rgb(210, 255, 210)" : "rgb(255, 220, 220)";
+
+
+
+                let statusText = "";
+                let statusBadgeClass = "";
+
+                switch (item.status) {
+                    case 0:
+                        statusText = "İşlem Yapılmadı";
+                        statusBadgeClass = "badge badge-warning";
+                    break;
+                    case 1:
+                        statusText = "İptal Edildi";
+                        statusBadgeClass = "badge badge-danger";
+                        break;
+                    case 2:
+                        statusText = "Onaylandı";
+                        statusBadgeClass = "badge badge-success";
+                        break;
+                    default:
+                        statusText = "Hata";
+                        statusBadgeClass = "";
+
+                }
+
+
+                tableHtml += `<tr style="background-color:${colorByTime}">
+                                                <td>${index + 1}</td>
+                                                <td>${item.customerName}</td>
+                                                <td>${item.phone}</td>
+                                                <td>${item.email}</td>
+                                                <td>${item.numberOfCustomers}</td>
+                                                <td>${formattedDate}</td>
+                                                  <td>
+                                             <div class="${statusBadgeClass}">${statusText}</div>
+                                                    </td>
+                                                <td>
+                                                       <a class="btn btn-success" href="/Booking/ApproveBooking/${item.bookingId}">ONAYLA</a>
+                                                 </td>
+                                                   
+                                                <td>
+                                                        <a class="btn btn-danger" href="/Booking/CancelBooking/${item.bookingId}">İPTAL / RED</a>
+                                                 </td>
+
+
+                                                <td>
+                                                     <a class="btn btn-danger" href="/Booking/DeleteBooking/${item.bookingId}" >SİL</a>
+                                                </td>
+                                                <td>
+                                                     <a class="btn btn-primary" href="/Booking/UpdateBooking/${item.bookingId}">GÜNCELLE</a>
+                                                </td>
+                                            </tr>`
+            });
+
+            tableHtml += `
+                                    </tbody>
+                                </table>`;
+
+            $("#bookinglist").html(tableHtml);
+
+
+
+
+        });
+
+
+    });
+
+
+
+</script>
+
+
+<h4 class="page-title">Rezervasyon İşlemleri</h4>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Rezervasyon Listesi</div>
+            </div>
+            <div class="card-body">
+                <div class="card-sub">
+                    Rezervasyon işlemlerini burada gerçekleştirebilirsiniz.
+                </div>
+                <p class="p-3 rounded bg-danger text-white">NOT:Yeni rezervasyonları görmek için sayfa yenilemenize gerek yoktur. Bu sayfa her saniye yenilenmektedir. </p>
+                <p>Rezervasyonlar tarih sırasına göre sıralanmıştır</p>
+                <div>
+                    <div class="d-flex align-items-center ">
+                        <span style="display:inline-block; width:1rem; height:1rem; background-color:rgb(255, 220, 220)">  </span>
+                        <label class="ml-2">Geçmiş rezervasyonlar</label>
+                    </div>
+                    <div class="d-flex align-items-center ">
+                        <span style=" display:inline-block; width:1rem; height:1rem; background-color:rgb(210, 255, 210)">  </span>
+                        <label class="ml-2">Yaklaşan rezervasyonlar</label>
+                    </div>
+                </div>
+
+
+                <div id="bookinglist"></div>
+
+
+                @* @foreach (var item in Model)
+                {
+
+                <tr>
+                <td>@(count++)</td>
+                <td>@item.CustomerName</td>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                <td>@item.numberOfCustomers</td>
+                <td>@item.BookingDate.ToShortDateString()</td>
+
+                <td>
+                <a class=" btn btn-outline-danger" asp-controller="Booking" asp-action="DeleteBooking" asp-route-id="@item.BookingId">SİL</a>
+                </td>
+                <td>
+                <a class=" btn btn-outline-warning" asp-controller="Booking" asp-action="UpdateBooking" asp-route-id="@item.BookingId">GÜNCELLE</a>
+                </td>
+                </tr>
+                } *@
+
+
+
+                <a class="btn btn-outline-success" asp-controller="Booking" asp-action="CreateBooking">Yeni Rezervasyon Girişi</a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+@* <tbody>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>@(count++)</td>
+            <td>@item.CustomerName</td>
+            <td>@item.Phone</td>
+            <td>@item.Email</td>
+            <td>@item.numberOfCustomers</td>
+            <td>@item.BookingDate.ToShortDateString()</td>
+
+            <td>
+                <a class=" btn btn-outline-danger" asp-controller="Booking" asp-action="DeleteBooking" asp-route-id="@item.BookingId">SİL</a>
+            </td>
+            <td>
+                <a class=" btn btn-outline-warning" asp-controller="Booking" asp-action="UpdateBooking" asp-route-id="@item.BookingId">GÜNCELLE</a>
+            </td>
+        </tr>
+    }
+
+
+</tbody> *@

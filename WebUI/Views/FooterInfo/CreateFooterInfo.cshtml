@@ -1,0 +1,50 @@
+﻿@model CreateFooterInfoDtoUI
+
+@{
+    ViewData["Title"] = "CreateFooterInfo";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="FooterInfo" asp-action="CreateFooterInfo">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Footer Info Ekleme</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Title">Başlık</label>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Açıklama</label>
+                        <input type="text" class="form-control" asp-for="Description">
+                    </div>
+
+                    <div class="form-check">
+                        <label>Durum</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="IsActive" value="true" checked="">
+                            <span class="form-radio-sign">Aktif</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="IsActive" value="false">
+                            <span class="form-radio-sign">Pasif</span>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Ekle</button>
+                    <a class="btn btn-danger" asp-controller="FooterInfo" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+

@@ -1,0 +1,63 @@
+﻿@model CreateNotificationDtoUI
+
+@{
+    ViewData["Title"] = "CreateNotification";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="Notification" asp-action="CreateNotification">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Bildirim Ekleme</div>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <select class="form-control input-fixed" asp-for="Type">
+                            <option value="primary" class="bg-primary text-white"> Mavi </option>
+                            <option value="info" class="bg-info text-white">Turkuvaz</option>
+                            <option value="success" class="bg-success text-white">Yeşil</option>
+                            <option value="warning" class="bg-warning text-white">Sarı</option>
+                            <option value="danger" class="bg-danger text-white">Kırmızı</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label asp-for="Description">Açıklama</label>
+                        <input type="text" class="form-control" asp-for="Description">
+                    </div>
+                    
+                 
+
+
+                    <div class="form-check">
+                        <label>Okunma Durumu</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="IsRead" value="true" checked="">
+                            <span class="form-radio-sign">Okundu</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="IsRead" value="false">
+                            <span class="form-radio-sign">Okunmadı</span>
+                        </label>
+                    </div>
+
+
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Bildirim Ekle</button>
+                    <a class="btn btn-danger" asp-controller="Notification" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

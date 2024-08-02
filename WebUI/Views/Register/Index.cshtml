@@ -1,0 +1,131 @@
+﻿
+@model RegisterUserDtoUI
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In / Sign Up - pure css</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>    
+    <link href="~/login-signup_theme/style.css" rel="stylesheet" />
+
+</head>
+<body>
+
+
+    <style>      
+        .no-style-link {
+            color: inherit; 
+            text-decoration: none;        
+            cursor: default; 
+            text-transform: initial;
+        }
+
+           
+    </style>
+
+    <!-- partial:index.partial.html -->
+    <a href="/Home/MainPage/" class="logo" style="left:40px !important">     
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0,0,256,256">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="#c4c3ca" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M24.96289,1.05469c-0.20987,0.00724 -0.41214,0.08036 -0.57812,0.20898l-23,17.94727c-0.43579,0.33978 -0.51361,0.96851 -0.17383,1.4043c0.33978,0.43579 0.96851,0.51361 1.4043,0.17383l1.38477,-1.08008v26.29102c0.00006,0.55226 0.44774,0.99994 1,1h13.83203c0.10799,0.01785 0.21818,0.01785 0.32617,0h11.67383c0.10799,0.01785 0.21818,0.01785 0.32617,0h13.8418c0.55226,-0.00006 0.99994,-0.44774 1,-1v-26.29102l1.38477,1.08008c0.2819,0.21983 0.65967,0.27257 0.991,0.13833c0.33133,-0.13423 0.56586,-0.43504 0.61526,-0.7891c0.0494,-0.35406 -0.09386,-0.70757 -0.37579,-0.92736l-7.61523,-5.94141v-7.26953h-6v2.58594l-9.38477,-7.32227c-0.18607,-0.14428 -0.41707,-0.21828 -0.65234,-0.20898zM25,3.32227l19,14.82617v26.85156h-12v-19h-14v19h-12v-26.85156zM37,8h2v3.70898l-2,-1.5625zM20,28h10v17h-10z"></path></g></g>
+        </svg>
+    </a>
+
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <h6 class="mb-0 pb-3">
+                            <span><a href="/Login/Index" class="no-style-link">Giriş Yap</a>  </span>
+                            
+                            <span> <a href="/Register/Index" class="no-style-link">Kayıt Ol</a> </span>
+                        
+                        </h6>
+
+                        @* <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                        <label for="reg-log"></label> *@
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+
+                @*                  <form method="post" asp-controller="Register" asp-action="Login">
+                                <div class="card-front">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Giriş Yap</h4>
+                                            <div class="form-group">
+                                                    <input type="text" class="form-style" placeholder="Kullanıcı adınız" asp-for="UserNameForLogin" autocomplete="off" value="admin">
+                                                <i class="input-icon uil uil-at"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" class="form-style" placeholder="Your Password" asp-for="PasswordForLogin" autocomplete="off" value="123456Aa.">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                            </div>                                           
+                                            <button class="btn btn-success mt-4">Giriş Yap</button>
+                                            <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Şifremi unuttum</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+ *@
+
+
+                                <div class="card-front" style="height:130% !important">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Kayıt Ol</h4>
+
+                                            <form method="post" asp-controller="Register" asp-action="Index" enctype="multipart/form-data">
+                                                
+                                                <div class="form-group">
+                                                    <input type="text"  class="form-style" placeholder="Adınız"  asp-for="NameForRegister" autocomplete="off" required>
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+
+                                                <div class="form-group mt-2">
+                                                    <input type="text" class="form-style" placeholder="Soyadınız" asp-for="SurnameForRegister" autocomplete="off" required>
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+
+                                                <div class="form-group mt-2">
+                                                    <input type="text" class="form-style" placeholder="Kullanıcı adınız" asp-for="UserNameForRegister" autocomplete="off" required>
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="email" class="form-style" placeholder="E-mail" asp-for="EmailForRegister" autocomplete="off" required>
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" class="form-style" placeholder="Şifreniz" asp-for="PasswordForRegister" autocomplete="off" required>
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>  
+                                                <div class="form-group mt-2">
+                                                    <input type="file" class="form-style"  asp-for="ImageFile" autocomplete="off" required>
+                                                    <i class="input-icon uil uil-image"></i>
+                                                </div>  
+                                                                                               
+                                                 <button class="btn btn-success mt-4">Kayıt Ol</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- partial -->
+    <script src="./script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿@model CreateFeatureDtoUI
+
+@{
+    ViewData["Title"] = "CreateFeature";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="Feature" asp-action="CreateFeature">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Öne Çıkan Bilgisi Ekleme</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Title">Başlık</label>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Text">Metin</label>
+                        <input type="text" class="form-control" asp-for="Text">
+                    </div>
+                    
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Ekle</button>
+                    <a class="btn btn-danger" asp-controller="Feature" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

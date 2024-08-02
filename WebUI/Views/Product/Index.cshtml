@@ -1,0 +1,95 @@
+﻿@model List<ResultProductWithCategoryDtoUI>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 1;
+}
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title">Ürün Listesi</div>
+			</div>
+			<div class="card-body">
+				<div class="card-sub">
+					<p>Ürün ile ilgili işlemleri burada gerçekleştirebilirsiniz.</p>
+					<p><strong>Detaylı olarak görmek istediğiniz resmin üzerine tıklayabilirisiniz</strong></p>
+
+				</div>
+				<table class="table mt-3">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Ürün Görseli</th>
+							<th scope="col">Ürün Adı</th>
+							<th scope="col">Açıklama</th>
+							<th scope="col">Ücret</th>
+							<th scope="col">Durum</th>
+							<th scope="col">Kategori</th>
+							<th scope="col">Sil</th>
+							<th scope="col">Güncelle</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var item in Model)
+						{
+								
+							<tr>
+								<td>@(count++)</td>
+								<td>
+									@await Html.PartialAsync("_modalTemplate", (@item.ProductId.ToString(), @item.ImgUrl))
+
+
+									<!-- Button trigger modal -->
+									<button type="button" class="" data-toggle="modal" data-target="#exampleModal_@item.ProductId" style="border:none; background:none; cursor:pointer">
+																			<img src="@item.ImgUrl" height="70" width="auto" />
+
+									</button>
+								</td>
+								<td>@item.ProductName</td>
+								<td>
+									@(item.Description.Length < 50 ? @item.Description : (@item.Description.Substring(0,47)+"..." ))								
+								</td>
+								<td>@item.Price</td>
+								
+								<td>
+										@if (item.ProductStatus)
+										{
+										<div class="badge badge-success">Mevcut</div>
+										}
+										else
+										{
+										<div class="badge badge-danger">Mevcut değil</div>
+										}
+
+								</td>
+
+								
+								<td>@item.CategoryName</td>
+								<td>
+									<a class=" btn btn-outline-danger" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.ProductId">SİL</a>
+								</td>
+								<td>
+									<a class=" btn btn-outline-warning" asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@item.ProductId">GÜNCELLE</a>
+								</td>
+							</tr>
+						}
+
+
+					</tbody>
+				</table>
+
+				<a class="btn btn-outline-success" asp-controller="Product" asp-action="CreateProduct">Yeni Ürün Girişi</a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+

@@ -1,0 +1,76 @@
+﻿@model UpdateProductDtoUI
+
+@{
+    ViewData["Title"] = "UpdateProduct";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="Product" asp-action="UpdateProduct" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Ürün Güncelleme</div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" asp-for="ProductId" />
+
+                    <div class="form-group">
+                        <label asp-for="ProductName">Ürün Adı</label>
+                        <input type="text" class="form-control" asp-for="ProductName">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Ürün Açıklaması</label>
+                        <input type="text" class="form-control" asp-for="Description">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price">Ürün Ücreti</label>
+                        <input type="text" class="form-control" asp-for="Price">
+                    </div>
+                    <div class="form-group ">
+                        <div>Ürün Görseli</div>
+                        <div class="border border-3 bg-light rounded p-3">
+
+                            <input type="hidden" class="form-control" asp-for="ImgUrl">
+                            <label>Eski görsel</label><br />
+                            <img src="@Model.ImgUrl" width="150" height="120" /><br />
+
+                            <label class="mt-3">Yeni görseli seçiniz</label><br />
+                            <input class="my-2" type="file" asp-for="ImgFile" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-check">
+                        <label>Ürün Durumu</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="ProductStatus" value="true">
+                            <span class="form-radio-sign">Mevcut</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="ProductStatus" value="false">
+                            <span class="form-radio-sign">Mevcut Değil</span>
+                        </label>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="CategoryId">Kategori Adı</label>
+                        @Html.DropDownListFor(x => x.CategoryId, (IEnumerable<SelectListItem>)ViewBag.SelectListItems, new { @class = "form-control" })
+                    </div>
+
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Ürün Güncelle</button>
+                    <a class="btn btn-danger" asp-controller="Product" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,64 @@
+﻿@model CreateProductDtoUI
+
+@{
+    ViewData["Title"] = "CreateProduct";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="Product" asp-action="CreateProduct" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Ürün Ekleme</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="ProductName">Ürün Adı</label>
+                        <input type="text" class="form-control" asp-for="ProductName">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Ürün Açıklaması</label>
+                        <input type="text" class="form-control" asp-for="Description">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price">Ürün Ücreti</label>
+                        <input type="text" class="form-control" asp-for="Price">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImgFile">Ürün Resim Yolu</label>
+                        <input type="file" class="form-control" asp-for="ImgFile">
+                    </div>
+            
+
+                    <div class="form-check">
+                        <label>Ürün Durumu</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="ProductStatus" value="true" checked="">
+                            <span class="form-radio-sign">Mevcut</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="ProductStatus" value="false">
+                            <span class="form-radio-sign">Mevcut Değil</span>
+                        </label>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="CategoryId">Kategori Adı</label>
+                        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.SelectListItems, new { @class = "form-control" })
+                    </div>
+
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Ürün Ekle</button>
+                    <a class="btn btn-danger" asp-controller="Product" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

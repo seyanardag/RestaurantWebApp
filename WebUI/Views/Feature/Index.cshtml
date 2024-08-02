@@ -1,0 +1,67 @@
+﻿@model List<ResultFeatureDtoUI>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 1;
+}
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-title">Öne Çıkan Listesi</div>
+			</div>
+			<div class="card-body">
+				<div class="card-sub">
+					Öne Çıkan işlemlerini burada gerçekleştirebilirsiniz.
+				</div>
+				<table class="table mt-3">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Başlık</th>
+							<th scope="col">Metin</th>
+							
+							<th scope="col">Sil</th>
+							<th scope="col">Güncelle</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var item in Model)
+						{
+
+							<tr>
+								<td>@(count++)</td>
+								<td>@item.Title</td>
+								<td>@item.Text</td>
+								
+
+								<td>
+									<a class=" btn btn-outline-danger" asp-controller="Feature" asp-action="DeleteFeature" asp-route-id="@item.FeatureId">SİL</a>
+								</td>
+								<td>
+									<a class=" btn btn-outline-warning" asp-controller="Feature" asp-action="UpdateFeature" asp-route-id="@item.FeatureId">GÜNCELLE</a>
+								</td>
+							</tr>
+						}
+
+
+					</tbody>
+				</table>
+
+				<a class="btn btn-outline-success" asp-controller="Feature" asp-action="CreateFeature">Yeni Öne Çıkan Bilgisi Girişi</a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+
+

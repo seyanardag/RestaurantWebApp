@@ -1,0 +1,52 @@
+﻿@model CreateSocialMediaDtoUI
+
+@{
+    ViewData["Title"] = "CreateSocialMedia";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="SocialMedia" asp-action="CreateSocialMedia">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Sosyal Medya Bilgisi Ekleme</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Platform">Platform</label>
+                        <input type="text" class="form-control" asp-for="Platform">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="siteUrl">Site URL</label>
+                        <input type="text" class="form-control" asp-for="siteUrl">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon">Simge</label>
+                        <input type="text" class="form-control" asp-for="Icon" placeholder="simge için aşağıdaki yönergeye göre hareket ediniz">
+                        <div class="mt-2  p-3 rounded " style="background-color:#f8d7da">
+
+                        <p >Simge için lütfen <a href="https://fontawesome.com/v4/icons/" target="_blank">buraya</a> tıklaynız ve açılan sayfada istediğiniz simgenin kodunu kopyalayarak bu yazının üzerindeki "simge"" bölümüne simge kodunu giriniz. </p>
+                            <p> Örneğin;  <b>"la la-youtube"</b> </p>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Ekle</button>
+                    <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+

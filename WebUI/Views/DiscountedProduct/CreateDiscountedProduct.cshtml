@@ -1,0 +1,58 @@
+﻿@model CreateDiscountedProductDtoUI
+
+@{
+    ViewData["Title"] = "CreateDiscountedProduct";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form method="post" asp-controller="DiscountedProduct" asp-action="CreateDiscountedProduct" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">İndirimli Ürün Bilgisi Ekleme</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Title">İndirimli Ürün Adı</label>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="DiscountRate">İndirim Oranı</label>
+                        <input type="number" class="form-control" min="0" max="100" asp-for="DiscountRate">
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ImgFile">Ürün resim yolu</label>
+                        <input type="file" class="form-control" asp-for="ImgFile">
+                    </div>
+
+                    <div class="form-check">
+                        <label>Durum</label><br>
+                        <label class="form-radio-label">
+                            <input class="form-radio-input" type="radio" asp-for="isActive" value="true" checked="">
+                            <span class="form-radio-sign">Mevcut</span>
+                        </label>
+                        <label class="form-radio-label ml-3">
+                            <input class="form-radio-input" type="radio" asp-for="isActive" value="false">
+                            <span class="form-radio-sign">Mevcut Değil</span>
+                        </label>
+                    </div>
+                   
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success" type="submit">Ekle</button>
+                    <a class="btn btn-danger" asp-controller="DiscountedProduct" asp-action="Index">Geri</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+

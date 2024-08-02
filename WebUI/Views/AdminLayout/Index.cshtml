@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+
+@await Component.InvokeAsync("_AdminLayoutHeadVC")
+
+<body>
+
+	<div class="wrapper">
+
+		@await Component.InvokeAsync("_AdminLayoutTopHeaderVC")
+
+		@await Component.InvokeAsync("_AdminLayoutSidebarVC")
+
+			<div class="main-panel" style=" display:flex; flex-direction:column; justify-content:space-between;">
+
+
+				<div class="content">
+
+					<div class="container-fluid">
+
+						@RenderBody()	
+					
+					</div>
+				</div>
+
+
+				@await Component.InvokeAsync("_AdminLayoutFooterVC")
+			</div>
+		</div>
+
+
+@await Component.InvokeAsync("_AdminLayoutScriptVC")
+</body>
+
+
+
+</html>

@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "MainPage";
+    Layout = "~/Views/Home/UILayout.cshtml";
+    // Layout = "~/Views/Home/DenemeLayout.cshtml";
+}
+
+<div class="hero_area">
+    <div class="bg-box">
+        <img src="~/restaurantTemplate/images/hero-bg.jpg" alt="">
+    </div>
+    <!-- header section strats -->
+    @* @await Component.InvokeAsync("_UILayoutHeaderVC") *@
+
+    <!-- end header section -->
+    <!-- slider section -->
+    @await Component.InvokeAsync("_UILayoutMainSliderVC")
+
+    <!-- end slider section -->
+
+</div>
+
+
+
+@await Component.InvokeAsync("_UILayoutOfferVC")
+
+@await Component.InvokeAsync("_UILayoutProductVC")
+
+@await Component.InvokeAsync("_UILayoutAboutVC")
+
+@await Component.InvokeAsync("_UILayoutContactFormMessageVC")
+
+@await Component.InvokeAsync("_UILayoutClientVC")
+

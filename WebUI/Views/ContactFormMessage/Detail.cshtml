@@ -1,0 +1,91 @@
+﻿@model GetContactFormMessageDtoUI
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			@* <div class="card-header">
+				<div class="card-title">Öne Çıkan Listesi</div>
+			</div> *@
+			<div class="card-body">
+				<div class="card-sub">
+					Form Yanıtı Detayları
+				</div>
+				<table class="table mt-3">
+			@* 		<thead>
+						<tr>
+							
+						</tr>
+					</thead> *@
+					<tbody>
+						<tr>
+							<th scope="col"> Ad Soyad  </th>
+							<td> @Model.NameSurname </td>
+
+						</tr>
+
+						<tr>
+							<th scope="col">Mail</th>
+							<td>@Model.Mail</td>
+
+						</tr>
+						<tr>
+							<th scope="col">Telefon</th>
+							<td>@Model.Phone</td>
+
+						</tr>
+
+						<tr>
+							<th scope="col">Başlık</th>
+							<td>@Model.Title</td>
+
+						</tr>
+						<tr>
+							<th scope="col">Mesaj İçeriği</th>
+							<td>@Model.Content</td>
+						</tr>
+						<tr>
+							<th scope="col">Tarih</th>
+							<td>@Model.Date.ToLongDateString() - @Model.Date.ToShortTimeString()</td>
+
+						</tr>
+
+								
+						<tr>
+							<th scope="col">Okunma Durumu</th>
+
+							<td>
+								@if (Model.IsRead)
+								{
+									<div class="badge badge-success">Okundu</div>
+								}
+								else
+								{
+									<div class="badge badge-danger">Okunmadı</div>
+								}
+
+							</td>
+						</tr>
+							
+							
+
+					</tbody>
+				</table>
+
+				<a class="btn btn-warning w-25" asp-controller="ContactFormMessage" asp-action="Index">Geri</a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
