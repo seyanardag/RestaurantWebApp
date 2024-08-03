@@ -5,6 +5,7 @@ using EntityLayer.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using WebUI.SeedIdentity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -72,6 +73,12 @@ app.UseStatusCodePages(async context =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=RestaurantTable}/{action=TablesRealtime}/{id?}");
-    //pattern: "{controller=Basket}/{action=Index}/{id=4}");
+//pattern: "{controller=Basket}/{action=Index}/{id=4}");
 
+
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	await SeedData.Initialize(services);
+}
 app.Run();
