@@ -1,3 +1,5 @@
+# NOT
+Projeyi çalıştırdığınızda "HttpRequestException: Hedef makine etkin olarak reddettiğinden bağlantı kurulamadı. (localhost:44346)" hatası alırsanız lütfen WebApi ve WebUI katmanlarını ayrı ayrı IIS Express moduna çekiniz. Daha sonra projeyi "Multiple starup projects" modunda WebApi ve WebUI katmanlarının ikisini beraber ayağa kaldırarak çalıştırabilirsiniz.
 # RestaurantWebApp
 Projemiz, restoranların yönetim süreçlerini kolaylaştırmak ve müşteri deneyimini geliştirmek amacıyla tasarlanmıştır.
 
