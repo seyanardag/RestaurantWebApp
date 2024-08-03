@@ -43,7 +43,8 @@ namespace DataAccessLayer.Concrete
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<About>().HasData(
-               new About() { AboutId = 1, Description = "Lezzet yolculuğunu unutulmaz kılan bir mola arıyorsanız, doğru adrestesiniz. Restoranımız, deneyimli şeflerimizin elinden çıkan benzersiz lezzetlerle dolu bir gastronomi deneyimi sunuyor. Her bir tabak, özenle seçilmiş malzemelerle hazırlanırken, zengin tatlar ve estetik sunumlarla buluşuyor. Misafirperverliğimiz ve kaliteli hizmet anlayışımızla, her ziyaretinizi özel kılmak için buradayız.", Title = "Restorantımıza hoşgeldiniz...", ImgUrl = "/images/aboutimages/about-img.png" }
+               new About() { AboutId = 1,isSelected=false, Description = "Büyüyen ve gelişen restoran zincirimiz sizlerin desteği ve profesyonel ekibimizin sayesinde yeni şubeler açmaya devam ediyor. İstanbul a yolunuz düşerse aynı lezzeti İstanbul şubemizde de yaşayın, yaşattırın...", Title = "Lezzet almanı mutluluk kaynağımız...", ImgUrl = "/images/aboutimages/about2.png" },
+               new About() { AboutId = 2,isSelected=true, Description = "Lezzet yolculuğunu unutulmaz kılan bir mola arıyorsanız, doğru adrestesiniz. Restoranımız, deneyimli şeflerimizin elinden çıkan benzersiz lezzetlerle dolu bir gastronomi deneyimi sunuyor. Her bir tabak, özenle seçilmiş malzemelerle hazırlanırken, zengin tatlar ve estetik sunumlarla buluşuyor. Misafirperverliğimiz ve kaliteli hizmet anlayışımızla, her ziyaretinizi özel kılmak için buradayız.", Title = "Restorantımıza hoşgeldiniz...", ImgUrl = "/images/aboutimages/about-img.png" }
                );
 
             modelBuilder.Entity<Booking>().HasData(
@@ -63,7 +64,9 @@ namespace DataAccessLayer.Concrete
             );
 
             modelBuilder.Entity<Contact>().HasData(
-                new Contact { ContactId = 1, Location = "Konya", Email = "sigranlr@gmail.com", Phone = "0543 789 01 23" }
+                new Contact { ContactId = 1, Location = "Konya", Email = "restorankonyasube@gmail.com", Phone = "0543 789 01 23" },
+                new Contact { ContactId = 2, Location = "İzmir", Email = "restoranizmirsube@gmail.com", Phone = "0543 555 66 77" },
+                new Contact { ContactId = 3, Location = "İstanbul", Email = "restoranistanbulsube@gmail.com", Phone = "0543 888 88 99" }
                 );
 
 
@@ -79,12 +82,14 @@ namespace DataAccessLayer.Concrete
                 );
 
             modelBuilder.Entity<FooterInfo>().HasData(
-                new FooterInfo { Id = 1, Title = "Lezzeti Yaşayın", Description = "Restoranımızda lezzet ve misafirperverlik buluşuyor. Modern ve şık atmosferimizde, yaratıcı şeflerimizin hazırladığı özenli yemeklerle unutulmaz bir deneyim yaşayın." }
+                new FooterInfo { Id = 1, IsActive=true, Title = "Lezzeti Yaşayın", Description = "Restoranımızda lezzet ve misafirperverlik buluşuyor. Modern ve şık atmosferimizde, yaratıcı şeflerimizin hazırladığı özenli yemeklerle unutulmaz bir deneyim yaşayın." },
+                new FooterInfo { Id = 2, IsActive=false, Title = "Tadın, Tattırın", Description = "Tam bir lezzet fabrikası olan restoranımızdan sevdiklerinizin de faydalanması bizlerin de mutluluğu olur." }
                 );
 
 
             modelBuilder.Entity<OpenHour>().HasData(
-                new OpenHour { Id = 1, OpenDays = "Pazartesi-Cumartesi", OpeningHour = "09.00", ClosingHour = "21.30" }
+                new OpenHour { Id = 1,IsActive=true, OpenDays = "Pazartesi-Cumartesi", OpeningHour = "09.00", ClosingHour = "21.30" },
+                new OpenHour { Id = 2,IsActive=false, OpenDays = "Her Gün", OpeningHour = "09.00", ClosingHour = "22.00" }
             );
 
 
