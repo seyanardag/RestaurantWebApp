@@ -20,16 +20,6 @@ namespace WebUI.ViewComponents.UILayoutComponents
             var client = _httpClientFactory.CreateClient();
 
 
-            var responseMessage2 = await client.GetAsync("https://localhost:44346/api/Category");
-            if (responseMessage2.IsSuccessStatusCode)
-            {
-                var json = await responseMessage2.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<List<ResultCategoryDtoUI>>(json);
-                List<string> categories = result.Where(x=>x.Status==true).Select(x => x.CategoryName).ToList();
-                ViewBag.Categories = categories;
-            }
-
-
 
             var responseMessage = await client.GetAsync("https://localhost:44346/api/Product/GetProductsWithCategories");
             if (responseMessage.IsSuccessStatusCode)
@@ -39,16 +29,22 @@ namespace WebUI.ViewComponents.UILayoutComponents
 
                 var actionDescriptor = ViewContext.ActionDescriptor as ControllerActionDescriptor;
                 string actionName = actionDescriptor?.ActionName;
+                ViewBag.ActionName = actionName;
 
                 if (actionName == "MainPage")  //Anasayfada ise sadece ilk 9 ürün, Menu sayfasında ise bütün ürünler listeleniyor
                 {
                     var filteredProducts = result.Where(x => x.ProductStatus == true).OrderByDescending(x => x.ProductId).Take(9).ToList();
-                    return View(filteredProducts);
+                    var filteredCategories = filteredProducts.Select(x=>x.CategoryName).Distinct().ToList();
+					ViewBag.Categories = filteredCategories;
+
+					return View(filteredProducts);
                 }
                 else
                 {
                     var filteredProducts = result.Where(x => x.ProductStatus == true).OrderByDescending(x => x.ProductId).ToList();
-                    return View(filteredProducts);
+					var filteredCategories = filteredProducts.Select(x => x.CategoryName).Distinct().ToList();
+					ViewBag.Categories = filteredCategories;
+					return View(filteredProducts);
                 }
 
 

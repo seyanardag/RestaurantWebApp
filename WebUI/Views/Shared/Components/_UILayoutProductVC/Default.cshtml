@@ -3,19 +3,25 @@
 
 
 
+
 <section class="food_section layout_padding-bottom">
     <div class="container">
         <div class="heading_container heading_center">
             <h2>
                 Menü
             </h2>
+            @if (ViewBag.ActionName == "MainPage")
+            {                
+            <p>Bu bölümde öne çıkan ürünlerimiz bulunmaktadır. Bütün ürünlerimiz için <a href="/Home/MenuPage/">menümüze</a> göz atabilirsiniz. </p>
+            }
         </div>
 
         <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
+            <li class="active" data-filter="*">Hepsi</li>
 
             @foreach (var item in @ViewBag.Categories)
             {
+             
                 <li data-filter=".@item">@item</li>
             }
 
@@ -35,9 +41,20 @@
                             <div>
                                 <div class="img-box">
 
-                                    <img src="@item.ImgUrl" alt="" />
+
+
+                                    @await Html.PartialAsync("_modalTemplate", (@item.ProductId.ToString(), @item.ImgUrl))
+
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="" data-toggle="modal" data-target="#exampleModal_@item.ProductId" style="border:none; background:none; cursor:pointer">
+                                        <img src="@item.ImgUrl" @* height="70" width="auto" *@ />
+
+                                    </button>
+
+
                                 </div>
-                                <div class="detail-box">
+                                <div class="detail-box" style="min-height:184px">
                                     <h5>
                                         @item.ProductName
                                     </h5>

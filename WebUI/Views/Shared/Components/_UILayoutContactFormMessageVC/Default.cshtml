@@ -9,24 +9,24 @@
             </h2>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="form_container">
                     <form method="post" asp-controller="ContactFormMessage" asp-action="CreateContactFormMessage">
                         <div>
-                            <input type="text" class="form-control" placeholder="Ad - Soyad" asp-for="NameSurname" />
+                            <input type="text" class="form-control" placeholder="Ad - Soyad" asp-for="NameSurname" required />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="e-posta" asp-for="Mail" />
+                            <input type="email" class="form-control" placeholder="e-posta" asp-for="Mail" required />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Telefon numaranız" asp-for="Phone" />
+                            <input type="text" class="form-control" placeholder="Telefon numaranız" asp-for="Phone" required />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Başlık" asp-for="Title" />
+                            <input type="text" class="form-control" placeholder="Başlık" asp-for="Title" required />
                         </div>
                         <div>
                             @* <input type="text" class="form-control" placeholder="Mesaj içeriği" asp-for="Content" /> *@
-                            <textarea rows="4" class="form-control" placeholder="Mesaj içeriği" asp-for="Content" ></textarea>
+                            <textarea rows="4" class="form-control" placeholder="Mesaj içeriği" asp-for="Content" required></textarea>
                         </div>
 
 
@@ -39,11 +39,11 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6">
+            @* <div class="col-md-6">
                 <div class="map_container ">
                     <div id="googleMap"></div>
                 </div>
-            </div>
+            </div> *@
         </div>
     </div>
 </section>

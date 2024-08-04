@@ -3,23 +3,23 @@
 
 <section class="book_section layout_padding">
     <div class="container">
-        <div class="heading_container">
+        <div class="heading_container align-items-center">
             <h2>
                 Rezervasyon Oluştur
             </h2>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mx-auto">
                 <div class="form_container">
                     <form method="post" asp-controller="BookATable" asp-action="CreateNewBooking">
                         <div>
-                            <input type="text" class="form-control" placeholder="Adınız" asp-for="CustomerName" />
+                            <input type="text" class="form-control" placeholder="Adınız" asp-for="CustomerName" required/>
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Telefon numaranız" asp-for="Phone" />
+                            <input type="text" class="form-control" placeholder="Telefon numaranız" asp-for="Phone" required />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="e-posta" asp-for="Email" />
+                            <input type="email" class="form-control" placeholder="e-posta" asp-for="Email" required />
                         </div>
                         <div>
                             <select class="form-control nice-select wide" asp-for="numberOfCustomers">
@@ -47,7 +47,7 @@
                             </select>
                         </div>
                         <div>
-                            <input type="date" class="form-control" asp-for="BookingDate">
+                            <input type="date" class="form-control" asp-for="BookingDate" required/>
                         </div>
                         <div class="btn_box">
                             <button type="submit">
@@ -57,11 +57,11 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6">
+            @* <div class="col-md-6">
                 <div class="map_container ">
                     <div id="googleMap"></div>
                 </div>
-            </div>
+            </div> *@
         </div>
     </div>
 </section>
