@@ -45,6 +45,35 @@
 
 
 
+<script>
+	//adimn sidebar için scroll pozisyonunun session kaydı-çağrılması
+	window.addEventListener('load', function () {
+		var sidebarScrollPosition = sessionStorage.getItem('sidebarScrollPosition');
+
+
+		if (sidebarScrollPosition !== null) {
+			var sidebar = document.querySelector('.sidebarScrollPosition');
+			if (sidebar) {
+				sidebar.scrollTop = parseInt(sidebarScrollPosition);
+			}
+		}
+
+	});
+
+
+	window.addEventListener('beforeunload', function () {
+		var sidebar = document.querySelector('.sidebarScrollPosition');
+
+
+		if (sidebar) {
+			sessionStorage.setItem('sidebarScrollPosition', sidebar.scrollTop);
+		}
+
+
+	});
+</script>
+
+
 
 @* 3 script Default Layout tan alındı *@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
