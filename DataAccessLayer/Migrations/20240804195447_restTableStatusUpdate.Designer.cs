@@ -4,6 +4,7 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(signalRContext))]
-    partial class signalRContextModelSnapshot : ModelSnapshot
+    [Migration("20240804195447_restTableStatusUpdate")]
+    partial class restTableStatusUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -690,7 +693,7 @@ namespace DataAccessLayer.Migrations
                             NotificationId = 2,
                             Date = new DateTime(2024, 8, 4, 16, 52, 32, 0, DateTimeKind.Unspecified),
                             Description = "Prim Ödemeleri",
-                            IsRead = false,
+                            IsRead = true,
                             Type = "warning"
                         },
                         new
@@ -706,7 +709,7 @@ namespace DataAccessLayer.Migrations
                             NotificationId = 4,
                             Date = new DateTime(2024, 8, 4, 14, 15, 45, 0, DateTimeKind.Unspecified),
                             Description = "Denetleme",
-                            IsRead = false,
+                            IsRead = true,
                             Type = "danger"
                         });
                 });

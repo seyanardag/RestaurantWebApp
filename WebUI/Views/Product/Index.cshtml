@@ -72,7 +72,7 @@
 								
 								<td>@item.CategoryName</td>
 								<td>
-									<a class=" btn btn-outline-danger" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.ProductId">SİL</a>
+									<a class=" btn btn-outline-danger sweetAlertConfirm" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.ProductId">SİL</a>
 								</td>
 								<td>
 									<a class=" btn btn-outline-warning" asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@item.ProductId">GÜNCELLE</a>

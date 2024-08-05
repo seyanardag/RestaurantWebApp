@@ -13,5 +13,38 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
 
+	<!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+	<!-- SweetAlert2 JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.sweetAlertConfirm').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault(); // Bağlantının varsayılan davranışını engelle
+
+                    let href = this.getAttribute('href'); // Bağlantının href değerini al
+
+                    Swal.fire({
+                        title: 'Onayla',
+                        text: 'Bu öğeyi silmek istediğinizden emin misiniz?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Evet',
+                        cancelButtonText: 'Hayır'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Kullanıcı onayladıysa bağlantıya yönlendir
+                            window.location.href = href;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
 </head>

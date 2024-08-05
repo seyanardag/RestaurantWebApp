@@ -73,10 +73,10 @@
                                 </td>
 
                                 <td>
-                                    <a class=" btn btn-danger" asp-controller="About" asp-action="DeleteAbout" asp-route-id="@item.AboutId">SİL</a>
+                                    <a class=" btn btn-danger sweetAlertConfirm" href="/About/DeleteAbout/@item.AboutId">SİL</a>
                                 </td>
                                 <td>
-                                    <a class=" btn btn-warning" asp-controller="About" asp-action="UpdateAbout" asp-route-id="@item.AboutId">GÜNCELLE</a>
+                                    <a class=" btn btn-warning" href="/About/UpdateAbout/@item.AboutId">GÜNCELLE</a>
                                 </td>
                             </tr>
                         }

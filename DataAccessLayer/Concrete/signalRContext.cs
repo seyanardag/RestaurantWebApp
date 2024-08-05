@@ -98,9 +98,9 @@ namespace DataAccessLayer.Concrete
 
 			modelBuilder.Entity<Notification>().HasData(
 				new Notification { NotificationId=1,Type="primary", Description="Toplantı", Date=new DateTime(2024,7,12,15,30,45),IsRead=true },
-				new Notification { NotificationId=2,Type= "warning", Description="Prim Ödemeleri", Date=new DateTime(2024,8,4,16,52,32),IsRead=true },
+				new Notification { NotificationId=2,Type= "warning", Description="Prim Ödemeleri", Date=new DateTime(2024,8,4,16,52,32),IsRead=false },
 				new Notification { NotificationId=3,Type= "primary", Description="Toplantı", Date=new DateTime(2024,8,4,13,35,05),IsRead=false },
-				new Notification { NotificationId=4,Type= "danger", Description="Denetleme", Date=new DateTime(2024,8,4,14,15,45),IsRead=true }
+				new Notification { NotificationId=4,Type= "danger", Description="Denetleme", Date=new DateTime(2024,8,4,14,15,45),IsRead=false }
 				);
 
 
@@ -185,10 +185,10 @@ namespace DataAccessLayer.Concrete
 				new RestaurantTable { RestaurantTableId = 6, TableName = "Masa 6", Status = false },
 				new RestaurantTable { RestaurantTableId = 7, TableName = "Bahçe 1", Status = false },
 				new RestaurantTable { RestaurantTableId = 8, TableName = "Bahçe 2", Status = false },
-				new RestaurantTable { RestaurantTableId = 9, TableName = "Bahçe 3", Status = false },
-				new RestaurantTable { RestaurantTableId = 10, TableName = "Bahçe 4", Status = false },
+				new RestaurantTable { RestaurantTableId = 9, TableName = "Bahçe 3", Status = true },
+				new RestaurantTable { RestaurantTableId = 10, TableName = "Bahçe 4", Status = true },
 				new RestaurantTable { RestaurantTableId = 11, TableName = "Bahçe 5", Status = false },
-				new RestaurantTable { RestaurantTableId = 12, TableName = "Bahçe 6", Status = false },
+				new RestaurantTable { RestaurantTableId = 12, TableName = "Bahçe 6", Status = true },
 				new RestaurantTable { RestaurantTableId = 13, TableName = "Teras 1", Status = false },
 				new RestaurantTable { RestaurantTableId = 14, TableName = "Teras 2", Status = false },
 				new RestaurantTable { RestaurantTableId = 15, TableName = "Teras 3", Status = false },
